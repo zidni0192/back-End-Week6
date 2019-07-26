@@ -25,8 +25,7 @@ module.exports = {
     },
     postPinjam: (req, res) => {
         const data = {
-            card_id: req.body.card_id,
-            name: req.body.name,
+            card_id: req.body.id_user,
             id_book: req.body.id_book,
             borrowed_at: new Date(),
             expired_at: new Date(new Date().setDate(new Date().getDate() + 7))

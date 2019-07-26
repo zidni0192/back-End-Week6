@@ -5,10 +5,10 @@ module.exports ={
         const headerAuth = req.headers["authorization"]
         const headerSecret = req.headers["x-access-token"]
         console.log(headerAuth)
-        if(headerAuth !== "Allow"){
-            return res.json("Unauthorization")
-        }else if(typeof headerAuth === 'undefined'){
+        if(typeof headerAuth === 'undefined'){
             next()
+        }else if(headerAuth !== "Allow"){
+            return res.json("Unauthorization")
         }else{
             const bearerToken = headerSecret.split(' ')
             const token = bearerToken[1]
