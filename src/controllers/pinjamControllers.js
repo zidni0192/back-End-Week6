@@ -3,8 +3,10 @@ const response = require('../helpers/responses')
 
 module.exports = {
     getPinjams: (req, res) => {
-        const id = req.body.id || ""
-        model.getPinjams(id)
+        const id = req.body.id
+        const role = req.body.role
+        if (role === "Librarian") {
+            model.getPinjams(null,role)
             .then((results) => {
                 result = results
                 response.ok(result, 200, res)
@@ -12,6 +14,16 @@ module.exports = {
             .catch((err) => {
                 console.log(err)
             })
+        } else {
+            model.getPinjams(id)
+                .then((results) => {
+                    result = results
+                    response.ok(result, 200, res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
     },
     getPinjam: (req, res) => {
         model.getPinjam(req.params.idpinjam)
@@ -25,7 +37,7 @@ module.exports = {
     },
     postPinjam: (req, res) => {
         const data = {
-            card_id: req.body.id_user,
+            user_id: req.body.id_user,
             id_book: req.body.id_book,
             borrowed_at: new Date(),
             expired_at: new Date(new Date().setDate(new Date().getDate() + 7))
@@ -55,7 +67,7 @@ module.exports = {
             returned_at: req.body.returned_at || null
         }
         const idpinjam = req.params.idpinjam
-        let status = req.body.status||false
+        let status = req.body.status || false
         const dataBook = { status: status }
         const bookid = req.body.id_book || 0
         model.patchPinjam(data, idpinjam)

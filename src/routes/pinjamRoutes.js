@@ -4,7 +4,7 @@ const Route = app.Router()
 const Auth = require('../helpers/auth')
 
     Route.all('/*',Auth.authInfo)
-    .get('/',controller.getPinjams)
+    .post('/',controller.getPinjams)
     .get('/:idpinjam',controller.getPinjam)
     .post('/',controller.postPinjam)
     .patch('/:idpinjam',controller.patchPinjam)

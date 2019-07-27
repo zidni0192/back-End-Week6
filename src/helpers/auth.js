@@ -21,7 +21,7 @@ module.exports ={
         const secretKey = "SECRET-DONG"
         const accessToken = req.token
         const userToken = req.headers['x-control-user']
-
+        console.log(accessToken)
         jwt.verify(accessToken,secretKey,(err,decoded)=>{
             if(err && err.name === 'TokenExpiredError') return res.json('Token Expired')
             if(err && err.name === 'JsonWebTokenError') return res.json('Invalid Token')
