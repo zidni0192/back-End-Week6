@@ -13,22 +13,25 @@ const xss = require('x-xss-protection')
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
-const whitelist = "127.0.0.1,192.168.6.121"
-const corsOption = (req,callback) =>{
-  if(whitelist.split(',').indexOf(req.hostname) !== -1){
-    console.log("Success")
-    return callback(null,{
-      origin:true
+const whitelist = "http://127.0.0.1,http://192.168.6.121"
+const corsOption = (req, callback) => {
+  
+  console.log(req.header('Origin'));
+  
+  if (whitelist.split(',').indexOf(req.header('Origin')) !== -1) {
+    console.log('Success')
+    return callback(null, {
+      origin: true
     })
-  }else{
-    console.log("Failed")
-    return callback('Not allowed by CORS',{
-      origin:false,
+  } else {
+    console.log('Failed')
+    return callback('Not Allowed', {
+      origin: false
     })
   }
 }
 app.use(xss())
-app.use(cors(corsOption))
+app.use(cors())
 app.options('*',cors(corsOption))
 app.listen(port,()=>{
     console.log(`We are running on port ${port}`)
@@ -39,6 +42,7 @@ app.listen(port,()=>{
 //     res.setHeader('Access-Control-Allow-Headers' , '*')
 //     next();
 //   });
+app.use(express.static('./src/uploads'))
 app.use('/books',bookRouter)
 app.use('/user',userRouter)
 app.use('/category',categoryRouter)

@@ -5,7 +5,6 @@ module.exports = {
         return new Promise((resolve, reject) => {
             connection.query("SELECT user.*,role.name as role FROM user INNER JOIN role ON role.id=user.role_id", (err, result) => {
                 if (!err) {
-                    console.log("asubdsk")
                     console.log(result)
                     resolve(result)
                 } else {

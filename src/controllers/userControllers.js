@@ -3,7 +3,6 @@ const helper = require('../helpers/password')
 const jwt = require('jsonwebtoken')
 module.exports = {
     getUsers: (req, res) => {
-        console.log("aksdbkhjsb")
         models.getUsers()
             .then((result) => {
                 res.json(result)

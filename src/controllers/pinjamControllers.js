@@ -72,7 +72,7 @@ module.exports = {
         const bookid = req.body.id_book || 0
         model.patchPinjam(data, idpinjam)
             .then((results) => {
-                response.ok(returned_at, 200, res)
+                response.ok(req.body.returned_at, 200, res)
             })
             .catch((err) => {
                 console.log(err)
@@ -84,7 +84,5 @@ module.exports = {
                 console.log(err)
             })
 
-    },
-    patchBook: (req, res) => {
     },
 }

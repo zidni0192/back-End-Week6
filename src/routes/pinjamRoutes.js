@@ -6,7 +6,7 @@ const Auth = require('../helpers/auth')
     Route.all('/*',Auth.authInfo)
     .post('/',controller.getPinjams)
     .get('/:idpinjam',controller.getPinjam)
-    .post('/',controller.postPinjam)
+    .post('/post',controller.postPinjam)
     .patch('/:idpinjam',controller.patchPinjam)
 
 module.exports = Route

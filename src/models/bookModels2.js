@@ -4,7 +4,7 @@ module.exports = {
     getBooks: (search) => {
         const keyword = `%${search}%`
         return new Promise((resolve, reject) => {
-            con.query('SELECT book.*,category.name as category FROM book INNER JOIN category ON category.categoryid = book.category_id WHERE book.title LIKE ? ',keyword, (err, result) => {
+            con.query('SELECT book.*,category.name as category FROM book INNER JOIN category ON category.categoryid = book.category_id WHERE book.title LIKE ? LIMIT ? , ?',[keyword,0,8], (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {
@@ -51,6 +51,17 @@ module.exports = {
     postBook: (data) => {
         return new Promise((resolve, reject) => {
             con.query('INSERT INTO book SET ?', data, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    postDonate: (data) => {
+        return new Promise((resolve, reject) => {
+            con.query('INSERT INTO donasi SET ?', data, (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {
